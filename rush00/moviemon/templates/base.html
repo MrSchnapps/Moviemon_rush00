@@ -6,7 +6,15 @@
 		<title>{% block title %}{% endblock %}</title>
 	</head>
 	<body>
-		{% block content %}
-		{% endblock %}
+        <div class='screen'>
+            {% block screen %}
+		    {% endblock screen %}
+        </div>
+        <hr>
+        <div class='control'>
+            {% block control %}
+		    {% endblock control %}
+        </div>
+		
 	</body>
 </html>
