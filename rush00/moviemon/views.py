@@ -21,3 +21,6 @@ class MapPageView(TemplateView):
 def index(request):
     loadMap()
     return render(request, 'index.html')
+
+class MapPageView(TemplateView):
+	template_name = 'map.html'
