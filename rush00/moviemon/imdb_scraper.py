@@ -10,6 +10,9 @@ class Moviemon():
 		self.synopsis = scraped_info['synopsis']
 		self.poster = scraped_info['poster']
 
+	def __str__(self) :
+		return "Title : {}, Director : {}, Year : {}, Rating : {}, Actors : {}, Synopsis : {}, Poster : {}".format(\
+		self.title, self.director, self.year, self.rating, self.actors, self.synopsis, self.poster)
 def scrape_imdb(movie_name):
 	url = 'http://www.omdbapi.com/?t={}&apikey=f72e10ff'.format(movie_name)
 

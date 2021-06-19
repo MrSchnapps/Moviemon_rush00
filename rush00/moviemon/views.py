@@ -15,7 +15,6 @@ def loadMap() :
         infos = file.read()
     game.load(infos)
 
-
 class MapPageView(TemplateView):
 	template_name = 'map.html'
 
