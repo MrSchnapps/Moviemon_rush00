@@ -2,7 +2,7 @@ from random import *
 from django.conf import settings
 from .imdb_scraper import *
 
-class Game :
+class Game:
     #current pos = [int, int]
     #number of movieballs  = int
     #names of the moviemons = list
@@ -39,7 +39,7 @@ class Game :
         #print(self.moviemons_infos)
         return self
             
-    def get_random_movie() :
+    def get_random_movie(self) :
         l = []
         for movi in self.moviemons_infos :
             if movi['title'] not in self.moviedex :
@@ -49,7 +49,7 @@ class Game :
         nb = random(0, len(l) - 1)
         return l[nb]
 
-    def load_default_settings() :
+    def load_default_settings(self) :
         self.pos[0] = settings.STARTING_POINT[0]
         self.pos[1] = settings.STARTING_POINT[1]
         self.movieballs = 0
@@ -58,10 +58,10 @@ class Game :
 
         return self
 
-    def get_strength() :
+    def get_strength(self) :
         return self.strenght
 
-    def get_movie(title) :
+    def get_movie(self, title) :
         moviemon = {}
         for mov in self.moviemons_infos :
             if title == mov['title'] :

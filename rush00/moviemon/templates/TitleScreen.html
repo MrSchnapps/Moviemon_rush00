@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block screen %}
 <h1>Title screen</h1>
 <a href='screen.html'>A - New Game</a>
@@ -7,11 +8,11 @@
 
 {% block control %}
 <ul>
-    <li>Top</li>
+    <li>Test</li>
     <li>Bot</li>
     <li>Left</li>
     <li>Right</li>
-    <li><button>A</button></li>
+    <li><a href="{% url 'map' %}"></a>Salut</li>
     <li><button>B</button></li>
     
 </ul>
