@@ -1,0 +1,13 @@
+table, td {
+	border: 1px solid black;	
+}
+
+table {
+	background-color: green;
+	border-collapse: collapse;
+}
+
+td {
+	min-width: 30px; 
+	min-height: 30px;
+}
