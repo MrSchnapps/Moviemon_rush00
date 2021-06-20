@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block screen %}
+<h1>Moviedex</h1>
+<table>
+    <tr>
+        {% for cur in cursor %}
+        {% if cur == '1' %}
+            <td style="background-color: blue;"></td>
+        {% else %}
+            <td></td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    <tr>
+    {% for i in imgs %}
+        <td><img src={{ i }}></td>
+    {% endfor %}
+    </tr>
+</table>
+{% endblock screen %}
+{% block control %}
+<ul>
+    <li><button onclick="">Up</button></li>
+    <li><button onclick="">Down</button></li>
+    <li><button onclick="location.href = '/leftcursor'">Left</button></li>
+    <li><button onclick="location.href = '/rightcursor'">Right</button></li>
+    <li><button onclick="location.href = '/worldmap'">Select</button></li>
+	<li><button onclick="">Start</button></li>
+	<li><button onclick="location.href = '/details'">A</button></li>
+	<li><button onclick="">B</button></li>
+    
+</ul>
+{% endblock %}
