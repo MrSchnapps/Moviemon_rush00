@@ -42,13 +42,14 @@ def moveup(request):
 	if (mvm_found == 0):
 		return HttpResponseRedirect('/worldmap/')
 	else:
-		file = open('./moviemon/moviemon_fight', 'w')
-		file.write('Gladiator')
-		file.close()
 		game = Game()
 		with open('moviemon/current_save.save') as file:
 			game.load(file.read())
-		generate_battle(game, game.get_random_movie())
+		rdm_mv = game.get_random_movie()
+		generate_battle(game, rdm_mv)
+		file = open('./moviemon/moviemon_fight', 'w')
+		file.write('{}'.format(rdm_mv.title))
+		file.close()
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 def movedown(request):
@@ -56,13 +57,14 @@ def movedown(request):
 	if (mvm_found == 0):
 		return HttpResponseRedirect('/worldmap/')
 	else:
-		file = open('./moviemon/moviemon_fight', 'w')
-		file.write('Gladiator')
-		file.close()
 		game = Game()
 		with open('moviemon/current_save.save') as file:
 			game.load(file.read())
-		generate_battle(game, game.get_random_movie())
+		rdm_mv = game.get_random_movie()
+		generate_battle(game, rdm_mv)
+		file = open('./moviemon/moviemon_fight', 'w')
+		file.write('{}'.format(rdm_mv.title))
+		file.close()
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 def moveleft(request):
@@ -70,13 +72,14 @@ def moveleft(request):
 	if (mvm_found == 0):
 		return HttpResponseRedirect('/worldmap/')
 	else:
-		file = open('./moviemon/moviemon_fight', 'w')
-		file.write('Gladiator')
-		file.close()
 		game = Game()
 		with open('moviemon/current_save.save') as file:
 			game.load(file.read())
-		generate_battle(game, game.get_random_movie())
+		rdm_mv = game.get_random_movie()
+		generate_battle(game, rdm_mv)
+		file = open('./moviemon/moviemon_fight', 'w')
+		file.write('{}'.format(rdm_mv.title))
+		file.close()
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 def moveright(request):
@@ -84,13 +87,14 @@ def moveright(request):
 	if (mvm_found == 0):
 		return HttpResponseRedirect('/worldmap/')
 	else:
-		file = open('./moviemon/moviemon_fight', 'w')
-		file.write('Gladiator')
-		file.close()
 		game = Game()
 		with open('moviemon/current_save.save') as file:
 			game.load(file.read())
-		generate_battle(game, game.get_random_movie())
+		rdm_mv = game.get_random_movie()
+		generate_battle(game, rdm_mv)
+		file = open('./moviemon/moviemon_fight', 'w')
+		file.write('{}'.format(rdm_mv.title))
+		file.close()
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 ### moviedex
@@ -142,6 +146,5 @@ def throw_ball(request):
 		game.strenght += 1
 	if (game.movieballs > 0):
 		game.movieballs -= 1
-	game.print_game()
 	game.write_infos()
 	return (HttpResponseRedirect('/worldmap/'))

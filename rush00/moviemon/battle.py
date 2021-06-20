@@ -1,4 +1,4 @@
-from . import Game
+from .Game import Game
 from django.conf import settings
 from . import imdb_scraper as scr
 import random
@@ -37,6 +37,9 @@ def generate_battle(game, moviemon):
 {% endblock %}\n""")
 
 def catch_movie(game, moviemon):
+	game = Game()
+	with open('moviemon/current_save.save') as file:
+		game.load(file.read())
 	if (game.movieballs <= 0):
 		return
 	C = 50 - (float(moviemon.rating) * 10) + (int(game.strenght) * 5)
