@@ -46,6 +46,8 @@ def moveup(request):
 		file.write('Gladiator')
 		file.close()
 		game = Game()
+		with open('moviemon/current_save.save') as file:
+			game.load(file.read())
 		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
@@ -58,6 +60,8 @@ def movedown(request):
 		file.write('Gladiator')
 		file.close()
 		game = Game()
+		with open('moviemon/current_save.save') as file:
+			game.load(file.read())
 		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
@@ -70,6 +74,8 @@ def moveleft(request):
 		file.write('Gladiator')
 		file.close()
 		game = Game()
+		with open('moviemon/current_save.save') as file:
+			game.load(file.read())
 		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
@@ -82,6 +88,8 @@ def moveright(request):
 		file.write('Gladiator')
 		file.close()
 		game = Game()
+		with open('moviemon/current_save.save') as file:
+			game.load(file.read())
 		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
@@ -109,6 +117,8 @@ def rightcursor(request) :
 ## battle
 def battle(request):
 	game = Game()
+	with open('moviemon/current_save.save') as file:
+		game.load(file.read())
 	title = game.get_random_movie().title
 	file = open('./moviemon/moviemon_fight', 'w')
 	file.write(title)
