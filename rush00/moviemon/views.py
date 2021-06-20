@@ -45,6 +45,8 @@ def moveup(request):
 		file = open('./moviemon/moviemon_fight', 'w')
 		file.write('Gladiator')
 		file.close()
+		game = Game()
+		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 def movedown(request):
@@ -55,6 +57,8 @@ def movedown(request):
 		file = open('./moviemon/moviemon_fight', 'w')
 		file.write('Gladiator')
 		file.close()
+		game = Game()
+		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 def moveleft(request):
@@ -65,7 +69,7 @@ def moveleft(request):
 		file = open('./moviemon/moviemon_fight', 'w')
 		file.write('Gladiator')
 		file.close()
-		game = Game.Game()
+		game = Game()
 		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
@@ -77,6 +81,8 @@ def moveright(request):
 		file = open('./moviemon/moviemon_fight', 'w')
 		file.write('Gladiator')
 		file.close()
+		game = Game()
+		generate_battle(game, game.get_random_movie())
 		return (HttpResponseRedirect('/battle/Moviemon'))
 
 ### moviedex

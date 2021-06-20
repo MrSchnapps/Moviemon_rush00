@@ -133,4 +133,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ROWS = 15
 COLUMNS = 15
 STARTING_POINT = [0, 0]
-LIST_OF_MOVIES = ['Gladiator', 'Hostel', 'Se7en', 'Goodfellas', 'Spring Break', 'Shrek', 'Seppuku', 'Psycho', 'Alien', 'Predator']
+LIST_OF_MOVIES = ['Sausage Party', 'Hostel', 'Bolero', 'Sharknado', 'Spring Break', 'Shrek', 'Seppuku', 'Super Buddies', 'Alien', 'Predator']
