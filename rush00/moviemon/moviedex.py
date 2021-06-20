@@ -1,10 +1,10 @@
 #from .writers import *
 from .Game import *
 
-def generate_moviedex(move) :
+def generate_moviedex(move=None) :
 	game = Game()
    
-	with open ("moviemon/save1_example", 'r') as file :
+	with open ("./moviemon/current_save.save", 'r') as file :
 		game.load(file.read())
 	#file = open("moviemon/files_utils/moviedex.infos", 'w')
 	#file.close()

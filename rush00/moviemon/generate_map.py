@@ -40,10 +40,7 @@ def generate_map(pos_x, pos_y, rows, columns, found_moviemon, game):
 	up_map.write('{% block screen %}\n')
 	up_map.write("""<table>\n""")
 	up_map.write("<p>{} movieballs<p>\n".format(game.movieballs))
-	if (found_moviemon):
-		up_map.write("<p> A wild moviemon just appeared !</p>\n")
-	else:
-		up_map.write("<p>No moviemon in sight.<p>\n")
+	up_map.write("<p>Moviemons caught : {}</p>\n".format(game.moviedex))
 
 	i = 0
 	while (i < rows):
@@ -63,7 +60,7 @@ def generate_map(pos_x, pos_y, rows, columns, found_moviemon, game):
     <li><button onclick="location.href = '/movedown'">Down</button></li>\n\
     <li><button onclick="location.href = '/moveleft'">Left</button></li>\n\
     <li><button onclick="location.href = '/moveright'">Right</button></li>\n\
-    <li><button onclick="location.href = '/worldmap'">Select</button></li>\n\
+    <li><button onclick="location.href = '/moviedex'">Select</button></li>\n\
 	<li><button onclick="location.href = '/worldmap'">Start</button></li>\n\
 	<li><button onclick="location.href = '/worldmap'">A</button></li>\n\
 	<li><button onclick="location.href = '/worldmap'">B</button></li>\n\
@@ -99,7 +96,7 @@ def move_character(direction):
 			game.pos[1] += 1
 	generate_map(game.pos[0], game.pos[1], settings.ROWS, settings.COLUMNS, 0, game)
 	game.write_infos()
-	main_game.main_game(game)
+	return (main_game.main_game(game))
 
 # def move_character_up(pos_x, pos_y):
 # 	file_content = get_file_content()

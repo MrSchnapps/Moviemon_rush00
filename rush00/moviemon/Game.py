@@ -1,4 +1,4 @@
-from random import *
+import random
 from django.conf import settings
 from .imdb_scraper import *
 
@@ -12,7 +12,7 @@ class Game:
         self.movieballs = 0
         self.moviedex = []
         self.moviemons_infos = []
-        self.strenght = 5 #A modi!!!
+        self.strenght = 10 #A modi!!!
 
     def load(self, content) :
         # print("content : ", content)
@@ -39,15 +39,18 @@ class Game:
         #print(self.moviemons_infos)
         return self
             
-    def get_random_movie(self) :
-        l = []
-        for movi in self.moviemons_infos :
-            if movi['title'] not in self.moviedex :
-                l.append(movi)
-        if len(l) == 0 :
-            return None
-        nb = random(0, len(l) - 1)
-        return l[nb]
+    def get_random_movie(self):
+        # l = []
+        # for movi in self.moviemons_infos :
+        #     if movi['title'] not in self.moviedex :
+        #         l.append(movi)
+        # if len(l) == 0 :
+        #     return None
+        # nb = random(0, len(l) - 1)
+        # return l[nb]
+        list_of_mons = load_all_moviemons()
+        i = random.randint(0, 9)
+        return (list_of_mons[i])
 
     def load_default_settings(self) :
         self.pos[0] = settings.STARTING_POINT[0]
@@ -64,21 +67,24 @@ class Game:
 
     def get_movie(self, title) :
         moviemon = {}
+       # print("title :", title)
         for mov in self.moviemons_infos :
-            if title == mov['title'] :
-                moviemon['title'] = mov['title']
-                moviemon['director'] = mov['director']
-                moviemon['year'] = mov['year']
-                moviemon['rating'] = mov['rating']
-                moviemon['synopsis'] = mov['synopsis']
-                moviemon['poster'] = mov['poster']
+            #print("title mov:", mov.title)
+            if title == mov.title :
+                moviemon['title'] = mov.title
+                moviemon['director'] = mov.director
+                moviemon['year'] = mov.year
+                moviemon['rating'] = mov.rating
+                moviemon['synopsis'] = mov.synopsis
+                moviemon['poster'] = mov.poster
+        return moviemon
 
     def getMoviemons(self, line) :
         d = {}
         split = line.split('|')
         for elem in split :
             #print(elem)
-            pair = elem.split(':')
+            pair = elem.split('*')
             d[pair[0]] = pair[1]
         mov = Moviemon(d)
         return mov
@@ -99,7 +105,7 @@ class Game:
             new_content += "\n"
         i = 0
         for moviemon in self.moviemons_infos :
-            new_content += "title:{0}|director:{1}|year:{2}|rating:{3}|actors:{4}|synopsis:{5}|poster:{6}".format(\
+            new_content += "title*{0}|director*{1}|year*{2}|rating*{3}|actors*{4}|synopsis*{5}|poster*{6}".format(\
             moviemon.title, moviemon.director, moviemon.year, moviemon.rating, moviemon.actors, moviemon.synopsis, moviemon.poster)
             if i < len(self.moviemons_infos) - 1:
                 new_content += '\n'
