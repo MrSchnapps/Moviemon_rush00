@@ -54,7 +54,8 @@ class Game:
         self.pos[1] = settings.STARTING_POINT[1]
         self.movieballs = 0
         self.moviedex = []
-        self.moviemons_infos = []
+        list_of_moviemons = load_all_moviemons()
+        self.moviemons_infos = list_of_moviemons
 
         return self
 

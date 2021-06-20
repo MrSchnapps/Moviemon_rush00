@@ -38,6 +38,8 @@ def generate_map(pos_x, pos_y, rows, columns):
 	up_map.write('{% endblock %}\n')
 	up_map.write('{% block screen %}\n')
 	up_map.write("""<table>\n""")
+	movieballs = get_file_content()[1]
+	up_map.write("<p>{} movieballs<p>\n".format(movieballs))
 
 	i = 0
 	while (i < rows):
@@ -83,11 +85,11 @@ def move_character_up():
 	new_x = int(pos[0]) - 1
 	if (new_x >= 0):
 		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+		main_game.main_game()
 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
-	main_game.main_game()
 
 def move_character_down():
 	file_content = get_file_content()
@@ -97,11 +99,12 @@ def move_character_down():
 	new_x = int(pos[0]) + 1
 	if (new_x < settings.ROWS):
 		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+		main_game.main_game()
 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
-	main_game.main_game()
+	
 
 def move_character_left():
 	file_content = get_file_content()
@@ -111,11 +114,12 @@ def move_character_left():
 	new_x = int(pos[1]) - 1
 	if (new_x >= 0):
 		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+		main_game.main_game()
 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
-	main_game.main_game()
+	
 
 def move_character_right():
 	file_content = get_file_content()
@@ -125,11 +129,12 @@ def move_character_right():
 	new_x = int(pos[1]) + 1
 	if (new_x < settings.COLUMNS): # number of columns
 		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+		main_game.main_game()
 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
-	main_game.main_game()
+	
 
 if __name__ == '__main__':
 	generate_map(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

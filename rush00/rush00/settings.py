@@ -19,8 +19,8 @@ STATICFILES_DIRS = [
     str(BASE_DIR.joinpath('static'))
 ]
 
-ROWS = 10
-COLUMNS = 10
+ROWS = 20
+COLUMNS = 20
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -135,3 +135,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Moviemon informations
 MAP_SIZE = 40
 STARTING_POINT = [29, 29]
+LIST_OF_MOVIES = ['Gladiator', 'Hostel', 'Se7en', 'Goodfellas', 'Spring Break', 'Shrek', 'Seppuku', 'Psycho', 'Alien', 'Predator']

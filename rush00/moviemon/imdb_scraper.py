@@ -1,4 +1,5 @@
 import requests, json, sys
+from django.conf import settings
 
 class Moviemon():
 	def __init__(self, scraped_info):
@@ -13,6 +14,7 @@ class Moviemon():
 	def __str__(self) :
 		return "Title : {}, Director : {}, Year : {}, Rating : {}, Actors : {}, Synopsis : {}, Poster : {}".format(\
 		self.title, self.director, self.year, self.rating, self.actors, self.synopsis, self.poster)
+
 def scrape_imdb(movie_name):
 	url = 'http://www.omdbapi.com/?t={}&apikey=f72e10ff'.format(movie_name)
 
@@ -30,6 +32,13 @@ def scrape_imdb(movie_name):
 	scrape_dic['poster'] = data['Poster']
 
 	return(scrape_dic)
+
+def load_all_moviemons():
+	list_of_moviemons = []
+	for moviemon in settings.LIST_OF_MOVIES:
+		mvm = Moviemon(scrape_imdb(moviemon))
+		list_of_moviemons.append(mvm)
+	return (list_of_moviemons)
 
 if __name__ == '__main__':
 	scrape_imdb(sys.argv[1])

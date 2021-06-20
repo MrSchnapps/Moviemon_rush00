@@ -4,15 +4,16 @@ from django.conf import settings
 from .Game import *
 from django.views.generic import TemplateView
 from . import generate_map as g_map
+from . import imdb_scraper as scr
 from time import sleep
 from django.http import HttpResponseRedirect
 # Create your views here.
 
 def loadMap() :
-    #map = [40][40]
-    #for row in map :
-      #  for case in row :
+    
     game = Game()
+    game.load_default_settings()
+    # loadsettings to load the correct info
     file_content = g_map.get_file_content()
     pos = g_map.get_pos(file_content)
     g_map.generate_map(pos[0], pos[1], settings.ROWS, settings.COLUMNS)  # changer le hardcode
@@ -42,8 +43,3 @@ def moveleft(request):
 def moveright(request):
     g_map.move_character_right()
     return HttpResponseRedirect('/worldmap/')
-# def movedown(request):
-
-# def moveleft(request):
-
-# def moveright(request):
