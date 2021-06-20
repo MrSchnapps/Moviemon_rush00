@@ -1,4 +1,5 @@
 from django.conf import settings
+from . import main_game
 import sys
 
 def write_columns(up_map, columns, pos_y):
@@ -17,7 +18,6 @@ def generate_map(pos_x, pos_y, rows, columns):
 	pos_y = int(pos_y)
 	rows = int(rows)
 	columns = int(columns)
-	print(pos_x, pos_y)
 	if (pos_x < 0):
 		pos_x = 0
 	if (pos_x > rows - 1):
@@ -41,7 +41,6 @@ def generate_map(pos_x, pos_y, rows, columns):
 
 	i = 0
 	while (i < rows):
-		print(i)
 		up_map.write('<tr>\n')
 		if (pos_x == i):
 			write_columns(up_map, columns, pos_y)
@@ -88,6 +87,7 @@ def move_character_up():
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
+	main_game.main_game()
 
 def move_character_down():
 	file_content = get_file_content()
@@ -101,6 +101,7 @@ def move_character_down():
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
+	main_game.main_game()
 
 def move_character_left():
 	file_content = get_file_content()
@@ -114,6 +115,7 @@ def move_character_left():
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
+	main_game.main_game()
 
 def move_character_right():
 	file_content = get_file_content()
@@ -127,6 +129,7 @@ def move_character_right():
 	for elem in file_content:
 		file.write('{}'.format(elem))
 	file.close()
+	main_game.main_game()
 
 if __name__ == '__main__':
 	generate_map(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
