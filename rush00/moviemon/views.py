@@ -13,10 +13,12 @@ def loadMap() :
     #for row in map :
       #  for case in row :
     game = Game()
-
+    file_content = g_map.get_file_content()
+    pos = g_map.get_pos(file_content)
+    g_map.generate_map(pos[0], pos[1], settings.ROWS, settings.COLUMNS)  # changer le hardcode
     with open("moviemon/save1_example", 'r') as file :
         infos = file.read()
-    game.load(infos)
+    # game.load(infos)
 
 class MapPageView(TemplateView):
 	template_name = 'map.html'
@@ -26,17 +28,19 @@ def index(request):
     return render(request, 'index.html')
 
 def moveup(request):
-    file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'r')
-    file_content = file.readlines()
-    pos = file_content[0].split(',')
-    g_map.generate_map(int(pos[0]), int(pos[1]) + 1, 7, 7)
-    # g_map.generate_map(0, 0 + 1, 7, 7)
-    file_content[0] = file_content[0].replace(pos[1], str(int(pos[1]) + 1)) + '\n'
-    file.close()
-    file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
-    for elem in file_content:
-        file.write('{}'.format(elem))
-    file.close()
+    g_map.move_character_up()
+    return HttpResponseRedirect('/worldmap/')
+
+def movedown(request):
+    g_map.move_character_down()
+    return HttpResponseRedirect('/worldmap/')
+
+def moveleft(request):
+    g_map.move_character_left()
+    return HttpResponseRedirect('/worldmap/')
+
+def moveright(request):
+    g_map.move_character_right()
     return HttpResponseRedirect('/worldmap/')
 # def movedown(request):
 

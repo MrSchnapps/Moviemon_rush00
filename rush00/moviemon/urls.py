@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('worldmap/', MapPageView.as_view(), name='map'),
     path('moveup/', views.moveup, name='up'),
-    path('movedown/', MapPageView.as_view(), name='down'),
-    path('moveleft/', MapPageView.as_view(), name='left'),
-    path('moveright/', MapPageView.as_view(), name='right')
+    path('movedown/', views.movedown, name='down'),
+    path('moveleft/', views.moveleft, name='left'),
+    path('moveright/', views.moveright, name='right')
 ]

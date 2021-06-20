@@ -66,5 +66,67 @@ def generate_map(pos_x, pos_y, rows, columns):
 </ul>\n\
 {% endblock %}\n""")
 
+def get_file_content():
+	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'r')
+	file_content = file.readlines()
+	file.close()
+	return (file_content)
+
+def get_pos(file_content):
+	pos = file_content[0].split(',')
+	return (pos)
+
+def move_character_up():
+	file_content = get_file_content()
+	pos = get_pos(file_content)
+	generate_map(int(pos[0]) - 1, int(pos[1]), settings.ROWS, settings.COLUMNS)
+	curr_x = int(pos[0])
+	new_x = int(pos[0]) - 1
+	if (new_x >= 0):
+		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+	for elem in file_content:
+		file.write('{}'.format(elem))
+	file.close()
+
+def move_character_down():
+	file_content = get_file_content()
+	pos = get_pos(file_content)
+	generate_map(int(pos[0]) + 1, int(pos[1]), settings.ROWS, settings.COLUMNS)
+	curr_x = int(pos[0])
+	new_x = int(pos[0]) + 1
+	if (new_x < settings.ROWS):
+		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+	for elem in file_content:
+		file.write('{}'.format(elem))
+	file.close()
+
+def move_character_left():
+	file_content = get_file_content()
+	pos = get_pos(file_content)
+	generate_map(int(pos[0]), int(pos[1]) - 1, settings.ROWS, settings.COLUMNS)
+	curr_x = int(pos[1])
+	new_x = int(pos[1]) - 1
+	if (new_x >= 0):
+		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+	for elem in file_content:
+		file.write('{}'.format(elem))
+	file.close()
+
+def move_character_right():
+	file_content = get_file_content()
+	pos = get_pos(file_content)
+	generate_map(int(pos[0]), int(pos[1]) + 1, settings.ROWS, settings.COLUMNS)
+	curr_x = int(pos[1])
+	new_x = int(pos[1]) + 1
+	if (new_x < settings.COLUMNS): # number of columns
+		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+	for elem in file_content:
+		file.write('{}'.format(elem))
+	file.close()
+
 if __name__ == '__main__':
 	generate_map(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
