@@ -7,6 +7,7 @@ from . import generate_map as g_map
 from . import imdb_scraper as scr
 from time import sleep
 from django.http import HttpResponseRedirect
+from .moviedex import *
 # Create your views here.
 
 def loadMap() :
@@ -46,3 +47,7 @@ def moveleft(request):
 def moveright(request):
     g_map.move_character('right')
     return HttpResponseRedirect('/worldmap/')
+
+def moviedex(request) :
+    generate_moviedex()
+    return (render, 'moviedex.html')
