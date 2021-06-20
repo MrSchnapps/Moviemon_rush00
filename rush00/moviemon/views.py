@@ -129,6 +129,7 @@ def throw_ball(request):
 	if (catch_movie(game, curr_mvm)):
 		game.moviedex.append(mvm.title)
 		print('CAPTURED {}'.format(mvm.title))
+		game.strenght += 1
 	if (game.movieballs > 0):
 		game.movieballs -= 1
 	game.print_game()

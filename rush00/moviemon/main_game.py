@@ -5,7 +5,7 @@ from . import Game
 from django.http import HttpResponseRedirect
 
 def find_movieballs(game):
-	found_movieball = random.randint(0, 6)
+	found_movieball = random.randint(0, 4)
 	if (found_movieball == 0):
 		game.movieballs += 1
 		game.write_infos()

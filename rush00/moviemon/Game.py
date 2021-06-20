@@ -12,7 +12,7 @@ class Game:
         self.movieballs = 0
         self.moviedex = []
         self.moviemons_infos = []
-        self.strenght = 10 #A modi!!!
+        self.strenght = 0 #A modi!!!
 
     def load(self, content) :
         # print("content : ", content)
