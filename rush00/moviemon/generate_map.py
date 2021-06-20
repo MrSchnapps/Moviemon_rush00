@@ -1,6 +1,7 @@
 from django.conf import settings
 from . import main_game
 import sys
+from . import Game
 
 def write_columns(up_map, columns, pos_y):
 	i = 0
@@ -13,7 +14,7 @@ def write_columns(up_map, columns, pos_y):
 		up_map.write('\t</td>\n')
 		i += 1
 
-def generate_map(pos_x, pos_y, rows, columns):
+def generate_map(pos_x, pos_y, rows, columns, found_moviemon, game):
 	pos_x = int(pos_x)
 	pos_y = int(pos_y)
 	rows = int(rows)
@@ -38,8 +39,11 @@ def generate_map(pos_x, pos_y, rows, columns):
 	up_map.write('{% endblock %}\n')
 	up_map.write('{% block screen %}\n')
 	up_map.write("""<table>\n""")
-	movieballs = get_file_content()[1]
-	up_map.write("<p>{} movieballs<p>\n".format(movieballs))
+	up_map.write("<p>{} movieballs<p>\n".format(game.movieballs))
+	if (found_moviemon):
+		up_map.write("<p> A wild moviemon just appeared !</p>\n")
+	else:
+		up_map.write("<p>No moviemon in sight.<p>\n")
 
 	i = 0
 	while (i < rows):
@@ -77,64 +81,88 @@ def get_pos(file_content):
 	pos = file_content[0].split(',')
 	return (pos)
 
-def move_character_up():
-	file_content = get_file_content()
-	pos = get_pos(file_content)
-	generate_map(int(pos[0]) - 1, int(pos[1]), settings.ROWS, settings.COLUMNS)
-	curr_x = int(pos[0])
-	new_x = int(pos[0]) - 1
-	if (new_x >= 0):
-		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
-		main_game.main_game()
-	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
-	for elem in file_content:
-		file.write('{}'.format(elem))
-	file.close()
+def move_character(direction):
+	game = Game.Game()
+	with open('moviemon/current_save.save') as file:
+		game.load(file.read())
+	if (direction == 'up'):
+		if (game.pos[0] > 0):
+			game.pos[0] -= 1
+	elif (direction == 'down'):
+		if (game.pos[1] < settings.ROWS - 1):
+			game.pos[0] += 1
+	elif (direction == 'left'):
+		if (game.pos[1] > 0):
+			game.pos[1] -= 1
+	elif (direction == 'right'):
+		if (game.pos[1] < settings.COLUMNS - 1):
+			game.pos[1] += 1
+	generate_map(game.pos[0], game.pos[1], settings.ROWS, settings.COLUMNS, 0, game)
+	game.write_infos()
+	main_game.main_game(game)
 
-def move_character_down():
-	file_content = get_file_content()
-	pos = get_pos(file_content)
-	generate_map(int(pos[0]) + 1, int(pos[1]), settings.ROWS, settings.COLUMNS)
-	curr_x = int(pos[0])
-	new_x = int(pos[0]) + 1
-	if (new_x < settings.ROWS):
-		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
-		main_game.main_game()
-	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
-	for elem in file_content:
-		file.write('{}'.format(elem))
-	file.close()
+# def move_character_up(pos_x, pos_y):
+# 	file_content = get_file_content()
+# 	pos = get_pos(file_content)
+# 	curr_x = int(pos[0])
+# 	new_x = int(pos[0]) - 1
+# 	found_moviemon = 0
+# 	if (new_x >= 0):
+# 		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+# 		found_moviemon = (main_game.main_game())
+# 	generate_map(int(pos[0]) - 1, int(pos[1]), settings.ROWS, settings.COLUMNS, found_moviemon)
+# 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+# 	for elem in file_content:
+# 		file.write('{}'.format(elem))
+# 	file.close()
+
+# def move_character_down():
+# 	file_content = get_file_content()
+# 	pos = get_pos(file_content)
+# 	found_moviemon = 0
+# 	curr_x = int(pos[0])
+# 	new_x = int(pos[0]) + 1
+# 	if (new_x < settings.ROWS):
+# 		file_content[0] = file_content[0].replace(str(curr_x)+',', str(new_x)+',')
+# 		found_moviemon = main_game.main_game()
+# 	generate_map(int(pos[0]) + 1, int(pos[1]), settings.ROWS, settings.COLUMNS, found_moviemon)
+# 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+# 	for elem in file_content:
+# 		file.write('{}'.format(elem))
+# 	file.close()
 	
 
-def move_character_left():
-	file_content = get_file_content()
-	pos = get_pos(file_content)
-	generate_map(int(pos[0]), int(pos[1]) - 1, settings.ROWS, settings.COLUMNS)
-	curr_x = int(pos[1])
-	new_x = int(pos[1]) - 1
-	if (new_x >= 0):
-		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
-		main_game.main_game()
-	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
-	for elem in file_content:
-		file.write('{}'.format(elem))
-	file.close()
+# def move_character_left():
+# 	file_content = get_file_content()
+# 	pos = get_pos(file_content)
+# 	found_moviemon = 0
+# 	curr_x = int(pos[1])
+# 	new_x = int(pos[1]) - 1
+# 	if (new_x >= 0):
+# 		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+# 		found_moviemon = main_game.main_game()
+# 	generate_map(int(pos[0]), int(pos[1]) - 1, settings.ROWS, settings.COLUMNS, found_moviemon)
+# 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+# 	for elem in file_content:
+# 		file.write('{}'.format(elem))
+# 	file.close()
 	
 
-def move_character_right():
-	file_content = get_file_content()
-	pos = get_pos(file_content)
-	generate_map(int(pos[0]), int(pos[1]) + 1, settings.ROWS, settings.COLUMNS)
-	curr_x = int(pos[1])
-	new_x = int(pos[1]) + 1
-	if (new_x < settings.COLUMNS): # number of columns
-		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
-		main_game.main_game()
-	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
-	for elem in file_content:
-		file.write('{}'.format(elem))
-	file.close()
+# def move_character_right():
+# 	file_content = get_file_content()
+# 	pos = get_pos(file_content)
+# 	found_moviemon = 0
+# 	curr_x = int(pos[1])
+# 	new_x = int(pos[1]) + 1
+# 	if (new_x < settings.COLUMNS): # number of columns
+# 		file_content[0] = file_content[0].replace(','+str(curr_x), ','+str(new_x))
+# 		found_moviemon = main_game.main_game()
+# 	generate_map(int(pos[0]), int(pos[1]) + 1, settings.ROWS, settings.COLUMNS, found_moviemon)
+# 	file = open(str(settings.BASE_DIR.joinpath('moviemon/save1_example')), 'w')
+# 	for elem in file_content:
+# 		file.write('{}'.format(elem))
+# 	file.close()
 	
 
 if __name__ == '__main__':
-	generate_map(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+	generate_map(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], 0)

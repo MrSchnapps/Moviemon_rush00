@@ -15,7 +15,7 @@ class Game:
         self.strenght = 5 #A modi!!!
 
     def load(self, content) :
-        print("content : ", content)
+        # print("content : ", content)
         lines = content.split('\n')
         info_pos = lines[0].split(',') #Parse first lines player pos format "x,y"
         self.pos[0] = int(info_pos[0])
@@ -83,4 +83,34 @@ class Game:
         mov = Moviemon(d)
         return mov
 
+    def write_infos(self) :
+        new_content = ""
+        new_content += "{0},{1}\n".format(str(self.pos[0]), str(self.pos[1]))
+        new_content += "{0}\n".format(str(self.movieballs))
+        if (len(self.moviedex) == 0) :
+            new_content += "_void_\n"
+        else :
+            i = 0
+            for mov in self.moviedex :
+                new_content += "{0}".format(str(mov))
+                if i < len(self.moviedex) - 1 :
+                    new_content += ','
+                i += 1
+            new_content += "\n"
+        i = 0
+        for moviemon in self.moviemons_infos :
+            new_content += "title:{0}|director:{1}|year:{2}|rating:{3}|actors:{4}|synopsis:{5}|poster:{6}".format(\
+            moviemon.title, moviemon.director, moviemon.year, moviemon.rating, moviemon.actors, moviemon.synopsis, moviemon.poster)
+            if i < len(self.moviemons_infos) - 1:
+                new_content += '\n'
+            i+=1
+        with open ('moviemon/current_save.save', 'w+') as file :
+            file.write(new_content)
+
+    def print_game(self) :
+        print("Pos :", str(self.pos))
+        print("balls :", str(self.movieballs))
+        print("films deja pris :", str(self.moviedex))
+        for m in self.moviemons_infos :
+            print(m)
     
